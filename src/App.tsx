@@ -15,6 +15,7 @@ const fetchTodos = async (): Promise<{ todos: Todo[] }> => {
 
 export default function App() {
 	const [todos, setTodos] = useState<Todo[]>([]);
+	const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
 
 	const fetchTodosHandler = async () => {
 		const data = await fetchTodos();
@@ -30,9 +31,22 @@ export default function App() {
 			{todos.length > 0 && (
 				<ul>
 					{todos.map((todo) => (
-						<li key={todo.id}>{todo.todo}</li>
+						<li
+							key={todo.id}
+							onClick={() => setSelectedTodo(todo)}
+						>
+							{todo.todo}
+						</li>
 					))}
 				</ul>
+			)}
+
+			{selectedTodo && (
+				<input
+					type="text"
+					value={selectedTodo.todo}
+					readOnly={true}
+				/>
 			)}
 		</main>
 	);
