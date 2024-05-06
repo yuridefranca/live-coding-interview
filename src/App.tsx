@@ -14,6 +14,7 @@ const fetchTodos = async (): Promise<{ todos: Todo[] }> => {
 };
 
 export default function App() {
+	const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
 	const [todos, setTodos] = useState<Todo[]>([]);
 	const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
 
@@ -37,12 +38,19 @@ export default function App() {
 		setTodos(updatedTodos);
 	};
 
+	const toggleThemeHandler = () => setIsDarkTheme(!isDarkTheme);
+
 	useEffect(() => {
 		fetchTodosHandler();
 	}, []);
 
+	useEffect(() => {
+		document.body.className = isDarkTheme ? 'dark' : '';
+	}, [isDarkTheme]);
+
 	return (
-		<main>
+		<main className={isDarkTheme ? 'dark' : ''}>
+			<button type="button" onClick={toggleThemeHandler}>Toggle Theme</button>
 			{todos.length > 0 && (
 				<ul>
 					{todos.map((todo) => (
