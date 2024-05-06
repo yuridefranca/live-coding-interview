@@ -22,6 +22,21 @@ export default function App() {
 		setTodos(data.todos);
 	};
 
+	const updateTodoHandler = ({ id, todo: todoContent }: Pick<Todo, 'id' | 'todo'>): void => {
+		setSelectedTodo({ ...selectedTodo!, todo: todoContent });
+
+		const updatedTodos = todos.map((t) => {
+			if (id !== t.id) return t;
+
+			return {
+				...t,
+				todo: todoContent,
+			};
+		});
+
+		setTodos(updatedTodos);
+	};
+
 	useEffect(() => {
 		fetchTodosHandler();
 	}, []);
@@ -45,7 +60,7 @@ export default function App() {
 				<input
 					type="text"
 					value={selectedTodo.todo}
-					readOnly={true}
+					onChange={(e) => updateTodoHandler({ id: selectedTodo.id, todo: e.target.value })}
 				/>
 			)}
 		</main>
