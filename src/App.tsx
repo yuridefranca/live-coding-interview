@@ -1,27 +1,12 @@
 import { useEffect, useState } from 'react';
-
-type Todo = {
-	id: number;
-	todo: string;
-	completed: boolean;
-	userId: number;
-};
-
-const fetchTodos = async (): Promise<{ todos: Todo[] }> => {
-	const response = await fetch('https://dummyjson.com/todos?limit=5');
-	const data = await response.json();
-	return data;
-};
+import { Todo } from './types';
+import { useTodos } from './hooks/useTodos';
 
 export default function App() {
 	const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
-	const [todos, setTodos] = useState<Todo[]>([]);
 	const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
 
-	const fetchTodosHandler = async () => {
-		const data = await fetchTodos();
-		setTodos(data.todos);
-	};
+	const { error, isLoading, setTodos, todos } = useTodos(5);
 
 	const updateTodoHandler = ({ id, todo: todoContent }: Pick<Todo, 'id' | 'todo'>): void => {
 		setSelectedTodo({ ...selectedTodo!, todo: todoContent });
@@ -41,16 +26,21 @@ export default function App() {
 	const toggleThemeHandler = () => setIsDarkTheme(!isDarkTheme);
 
 	useEffect(() => {
-		fetchTodosHandler();
-	}, []);
-
-	useEffect(() => {
 		document.body.className = isDarkTheme ? 'dark' : '';
 	}, [isDarkTheme]);
 
+	if (isLoading) return <div>Loading...</div>;
+
+	if (error) return <div>Error: {error.message}</div>;
+
 	return (
 		<main className={isDarkTheme ? 'dark' : ''}>
-			<button type="button" onClick={toggleThemeHandler}>Toggle Theme</button>
+			<button
+				type="button"
+				onClick={toggleThemeHandler}
+			>
+				Toggle Theme
+			</button>
 			{todos.length > 0 && (
 				<ul>
 					{todos.map((todo) => (
