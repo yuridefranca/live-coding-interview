@@ -12,6 +12,7 @@ export const TodoList = ({ setSelectedTodo, todos }: Props): JSX.Element => {
 				<li
 					key={todo.id}
 					onClick={() => setSelectedTodo(todo)}
+					style={{ cursor: 'pointer', padding: '5px' }}
 				>
 					{todo.todo}
 				</li>
