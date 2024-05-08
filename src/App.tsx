@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react';
+
 import { Todo } from './types';
+
 import { useTodos } from './hooks/useTodos';
+
 import { TodoList } from './components/TodoList';
+import { ThemeToggler } from './components/ThemeToggler';
+import { TodoDisplay } from './components/TodoDisplay';
+
+import { ThemeContext } from './contexts/theme-context';
 
 export default function App() {
-	const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
+	const [theme, setTheme] = useState<'dark' | 'light'>('light');
 	const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
 
 	const { error, isLoading, setTodos, todos } = useTodos(5);
@@ -24,38 +31,35 @@ export default function App() {
 		setTodos(updatedTodos);
 	};
 
-	const toggleThemeHandler = () => setIsDarkTheme(!isDarkTheme);
+	const toggleThemeHandler = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
 	useEffect(() => {
-		document.body.className = isDarkTheme ? 'dark' : '';
-	}, [isDarkTheme]);
+		document.body.className = theme;
+	}, [theme]);
 
 	if (isLoading) return <div>Loading...</div>;
 
 	if (error) return <div>Error: {error.message}</div>;
 
 	return (
-		<main className={isDarkTheme ? 'dark' : ''}>
-			<button
-				type="button"
-				onClick={toggleThemeHandler}
-			>
-				Toggle Theme
-			</button>
-			{todos.length > 0 && (
-				<TodoList
-					setSelectedTodo={setSelectedTodo}
-					todos={todos}
-				/>
-			)}
+		<ThemeContext.Provider value={theme}>
+			<main>
+				<ThemeToggler toggleThemeHandler={toggleThemeHandler} />
 
-			{selectedTodo && (
-				<input
-					type="text"
-					value={selectedTodo.todo}
-					onChange={(e) => updateTodoHandler({ id: selectedTodo.id, todo: e.target.value })}
-				/>
-			)}
-		</main>
+				{todos.length > 0 && (
+					<TodoList
+						setSelectedTodo={setSelectedTodo}
+						todos={todos}
+					/>
+				)}
+
+				{selectedTodo && (
+					<TodoDisplay
+						onChangeHandler={(e) => updateTodoHandler({ id: selectedTodo.id, todo: e.target.value })}
+						selectedTodo={selectedTodo}
+					/>
+				)}
+			</main>
+		</ThemeContext.Provider>
 	);
 }
