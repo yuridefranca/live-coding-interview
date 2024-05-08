@@ -1,30 +1,52 @@
-# React + TypeScript + Vite
+# Duelbits Live Coding
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Duelbits Live Coding is a project developed following the live coding interview requirements
 
-Currently, two official plugins are available:
+## Table of contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* [Requirements](#requirements)
+* [Technologies](#technologies)
+* [Setup](#setup)
 
-## Expanding the ESLint configuration
+## Requirements
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+* [Bun](https://bun.sh/) <br>
+* [Git](https://git-scm.com/) <br>
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+* [Bun](https://bun.sh/) <br>
+  Bun is an all-in-one toolkit for JavaScript and TypeScript apps. It ships as a single executable called bun.
+
+* [Vite](https://vitejs.dev/guide/) <br>
+  Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
+  
+* [SWC](https://swc.rs/docs/getting-started) <br>
+  SWC can be used for both compilation and bundling. For compilation, it takes JavaScript / TypeScript files using modern JavaScript features and outputs valid code that is supported by all major browsers.
+
+* [React](https://react.dev/reference/react) <br>
+  React is a free and open-source front-end JavaScript library for building user interfaces based on components.
+
+* [Typescript](https://www.typescriptlang.org/) <br>
+  TypeScript is a free and open-source high-level programming language developed by Microsoft that adds static typing with optional type annotations to JavaScript.
+
+<br>
+
+## Setup
+
+To run this project, clone and install it locally following the steps above:
+
+```bash
+  # Clone the repository
+  $ git clone repository-url
+
+  # Navigate into the directory
+  $ cd 
+
+  # Install dependencies
+  $ bun install
+
+  # Run in development mode
+  $ bun run dev
+  
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
