@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Todo } from './types';
 import { useTodos } from './hooks/useTodos';
+import { TodoList } from './components/TodoList';
 
 export default function App() {
 	const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
@@ -42,16 +43,10 @@ export default function App() {
 				Toggle Theme
 			</button>
 			{todos.length > 0 && (
-				<ul>
-					{todos.map((todo) => (
-						<li
-							key={todo.id}
-							onClick={() => setSelectedTodo(todo)}
-						>
-							{todo.todo}
-						</li>
-					))}
-				</ul>
+				<TodoList
+					setSelectedTodo={setSelectedTodo}
+					todos={todos}
+				/>
 			)}
 
 			{selectedTodo && (
