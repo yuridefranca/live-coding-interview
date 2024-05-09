@@ -38,10 +38,10 @@ To run this project, clone and install it locally following the steps above:
 
 ```bash
   # Clone the repository
-  $ git clone repository-url
+  $ git clone https://github.com/yuridefranca/live-coding-interview.git
 
   # Navigate into the directory
-  $ cd 
+  $ cd live-coding-interview
 
   # Install dependencies
   $ bun install
