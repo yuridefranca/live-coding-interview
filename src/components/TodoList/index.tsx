@@ -1,4 +1,5 @@
 import { Todo } from '../../types';
+import { TodoItem } from '../TodoItem';
 
 type Props = {
 	setSelectedTodo: (todo: Todo) => void;
@@ -9,13 +10,10 @@ export const TodoList = ({ setSelectedTodo, todos }: Props): JSX.Element => {
 	return (
 		<ul>
 			{todos.map((todo) => (
-				<li
-					key={todo.id}
-					onClick={() => setSelectedTodo(todo)}
-					style={{ cursor: 'pointer', padding: '5px' }}
-				>
-					{todo.todo}
-				</li>
+				<TodoItem
+					setSelectedTodo={setSelectedTodo}
+					todo={todo}
+				/>
 			))}
 		</ul>
 	);
